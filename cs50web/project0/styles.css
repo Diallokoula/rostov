@@ -1,0 +1,14 @@
+.navbar ul {
+    display: flex;
+    justify-content: end;
+    list-style-type: none;
+}
+li {
+    padding: 5px;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
