@@ -1,0 +1,35 @@
+{% extends "file/layout.html" %}
+
+{% block body %}
+    <div class="container my-3">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card" style="background-color: #343a40; padding: 20px;">
+                    <h2 class="card-title text-center mb-4" style="color: white;">Register</h2>
+                    {% if message %}
+                        <div>{{ message }}</div>
+                    {% endif %}
+                    <form action="{% url 'register' %}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input class="form-control" autofocus type="text" name="username" placeholder="Username" style="height: 40px;">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" type="email" name="email" placeholder="Email Address" style="height: 40px;">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" type="password" name="password" placeholder="Password" style="height: 40px;">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password" style="height: 40px;">
+                        </div>
+                        <input class="btn btn-primary btn-block" type="submit" value="Register" style="height: 40px;">
+                    </form>
+                    <div class="text-center mt-3" style="color: white;">
+                        Already have an account? <a href="{% url 'login' %}" class="text-decoration-none">Log In here.</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

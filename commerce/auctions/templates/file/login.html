@@ -1,0 +1,30 @@
+{% extends "file/layout.html" %}
+
+{% block body %}
+    <div class="container my-3">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card" style="background-color: #343a40; padding: 20px;">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4" style="color: white;">Log In</h2>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="username" class="form-label" style="color: white;">Username</label>
+                                <input type="text" name="username" class="form-control" id="username" style="height: 40px;" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label" style="color: white;">Password</label>
+                                <input type="password" name="password" class="form-control" id="password" style="height: 40px;" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block" style="height: 40px;">Log In</button>
+                        </form>
+                        <div class="text-center mt-3">
+                            <a href="{% url 'register' %}" class="text-decoration-none" style="color: white;">Don't have an account? Register here</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

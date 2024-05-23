@@ -1,0 +1,94 @@
+{% extends "file/layout.html" %}
+
+{% block body %}
+    <div class="container" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px;">
+        <h2 class="my-4">Create your Product</h2>
+        <form action="{% url 'createProduct' %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="category" class="form-label"><h4>Select Your Category</h4></label>
+                <select name="category" class="form-select" aria-label="Select category">
+                    <option selected disabled>Select</option>
+                    {% for cat in category %}
+                        <option value="{{ cat }}">{{ cat }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="title" class="form-label"><h4>Title</h4></label>
+                <input type="text" name="title" class="form-control" id="title" placeholder="Enter title" required>
+            </div>
+            
+              <div class="mb-3">
+                <label class="form-label"><h4>Choose the Source of your image</h4></label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="image_source" id="urlSource" value="url" checked>
+                    <label class="form-check-label" for="urlSource">
+                        Image URL
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="image_source" id="fileSource" value="file">
+                    <label class="form-check-label" for="fileSource">
+                        Upload from your device
+                    </label>
+                </div>
+            </div>
+            
+            <div class="mb-3" id="imageUrlInput">
+                <label for="image" class="form-label">URL</label>
+                <input type="text" name="image" class="form-control" id="image" placeholder="Enter image URL">
+            </div>
+            
+            <div class="mb-3" id="fileInput" style="display: none;">
+                <label for="formFile" class="form-label">Upload Image</label>
+                <input class="form-control" type="file" id="formFile">
+            </div>
+            
+            <div class="mb-3">
+                <label for="description" class="form-label"><h4>Description</h4></label>
+                <textarea class="form-control" name="description" id="description" rows="5" placeholder="Enter description" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-check-label"><h4>Availability</h4></label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="availability" id="available" value="available" checked>
+                    <label class="form-check-label" for="available">
+                        Available
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="availability" id="not-available" value="not-available">
+                    <label class="form-check-label" for="not-available">
+                        Not Available
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label"><h4>Price</h4></label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" name="price" class="form-control" id="price" placeholder="Enter price" step="0.01" required>
+                    <span class="input-group-text">.00</span>
+                </div>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary"><h4>Create</h4></button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.querySelectorAll('input[name="image_source"]').forEach(function(input) {
+            input.addEventListener('change', function() {
+                if (this.value === 'url') {
+                    document.getElementById('imageUrlInput').style.display = 'block';
+                    document.getElementById('fileInput').style.display = 'none';
+                } else {
+                    document.getElementById('imageUrlInput').style.display = 'none';
+                    document.getElementById('fileInput').style.display = 'block';
+                }
+            });
+        });
+    </script>
+    
+{% endblock %}
