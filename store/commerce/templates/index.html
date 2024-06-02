@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <style>
+        .card {
+            background-color: #d1e1f1;
+            position: relative; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            padding: 20px; 
+            height: 100%; 
+        }
+        .details-btn {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+        }
+        .price {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+        .card-body {
+            min-height: 100%; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .card-title {
+            margin-bottom: 10px;
+        }
+        .card-text {
+            flex-grow: 1; 
+        }
+    </style>
+
+    <div class="container-fluid bg-light py-4"> 
+        <h2 class="my-4" style="color: #3ce694">Products</h2>
+        <form action="{% url 'displayItem' %}" method="post" class="mb-4">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="category" class="form-label">Select a Category</label>
+                    <select name="category" class="form-select" aria-label="Select category">
+                        <option value="" selected disabled>Select</option>
+                        {% for cat in category %}
+                            <option value="{{ cat }}">{{ cat }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary mt-2">Filter</button>
+                </div>
+            </div>
+        </form>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for item in items %}
+                <div class="col">
+                    <div class="card">
+                        <img src="{{ item.image }}" class="card-img-top" alt="{{ item.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            <p class="card-text">{{ item.description|truncatewords:10 }}</p>
+                            <a href="{% url 'listing' id=item.id %}" class="btn btn-primary details-btn">Details</a>
+                            <span class="price">${{ item.price }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
